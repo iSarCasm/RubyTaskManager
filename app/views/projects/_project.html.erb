@@ -1,0 +1,21 @@
+<li class="col-md-10 col-md-offset-1">
+	<h2>
+		<%= project.name %>
+		<p class="control"><a href="#">Edit</a> | <a href="#">Delete</a></p>
+	</h2>
+	<%= form_for(@task) do |f| %>
+		<%= f.text_field :name, placeholder: "Type your task here..." %>
+		<%= f.hidden_field :project_id, :value => project.id %>
+		<%= f.submit "Add Task", class: "btn btn-primary" %>
+	<% end %>
+	<% if project.tasks.any? %>
+		<% project.tasks.each do |x| %>
+			<h3>
+				<%= x.name %>	
+				<p class="control"><a href="#">Edit</a> | <a href="#">Delete</a></p>
+			</h3>
+		<% end %>
+	<% else %>
+		<h3>Empty</h3>
+	<% end %>
+</li>
