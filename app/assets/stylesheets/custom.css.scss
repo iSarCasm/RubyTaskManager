@@ -1,3 +1,6 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
 body {
 	background-image: url(background.jpg);
 	background-repeat: no-repeat;
@@ -25,4 +28,13 @@ p {
 	bottom:0;
 	left:0;
 	text-align: center;
+}
+
+
+.control {
+	font-size: 14px;
+	display: inline;
+	a {
+		color: #005;
+	}
 }
