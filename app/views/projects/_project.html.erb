@@ -1,7 +1,12 @@
 <li class="col-md-10 col-md-offset-1">
 	<h2>
 		<%= project.name %>
-		<p class="control"><a href="#">Edit</a> | <a href="#">Delete</a></p>
+		<%= link_to "Delete", project, class: "control",method: :delete  %>
+		<p class="control"><a href="#">Edit</a></p>
+		<%= form_for(project) do |f| %>
+			<%= f.text_field :name %>
+			<%= f.submit "Save", class: "btn"  %>
+		<% end %>
 	</h2>
 	<%= form_for(@task) do |f| %>
 		<%= f.text_field :name, placeholder: "Type your task here..." %>
@@ -9,10 +14,19 @@
 		<%= f.submit "Add Task", class: "btn btn-primary" %>
 	<% end %>
 	<% if project.tasks.any? %>
-		<% project.tasks.each do |x| %>
+		<% project.tasks.order(priority: :desc).each do |x| %>
 			<h3>
 				<%= x.name %>	
-				<p class="control"><a href="#">Edit</a> | <a href="#">Delete</a></p>
+				<%= link_to "Delete", x, class: "control",method: :delete  %>
+				<p class="control">
+					<a href="#">Edit</a>
+					<%= link_to("Up", up_path(x), method: :prioritizeUp) %>
+					<%= link_to("Down", down_path(x), method: :prioritizeDown) %>
+				</p>
+				<%= form_for(x) do |f| %>
+					<%= f.text_field :name %>
+					<%= f.submit "Save", class: "brn"  %>
+				<% end %>
 			</h3>
 		<% end %>
 	<% else %>

@@ -11,9 +11,13 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    Project.find(params[:id]).update(name: get_params[:name])
+    redirect_to root_url
   end
 
   def destroy
+    Project.find(params[:id]).destroy
+    redirect_to root_url
   end
 
   private 
