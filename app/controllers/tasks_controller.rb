@@ -44,6 +44,6 @@ class TasksController < ApplicationController
                       WHERE project_id = ?
                       ORDER BY priority DESC LIMIT 1",project
       result = Task.find_by_sql(topTaskQuery)
-      (result ? result.first.priority+1 : 0)
+      (result.first ? result.first.priority+1 : 0)
     end
 end
