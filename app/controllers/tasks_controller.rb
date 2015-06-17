@@ -3,7 +3,8 @@ class TasksController < ApplicationController
   	project = Project.find(get_params[:project_id])
   	@task = project.tasks.build(	name: 				get_params[:name],
   																deadline: 		get_params[:deadline],
-                                  priority:     get_priority(project))
+                                  priority:     get_priority(project),
+                                  done:         0)
   	if @task.save
   		flash[:succes] = "ez pzzz"
   	else 
@@ -13,7 +14,9 @@ class TasksController < ApplicationController
   end
 
   def update
-    Task.find(params[:id]).update(name: get_params[:name])
+    date = Date.new Time.now.year, get_params["deadline(2i)"].to_i, get_params["deadline(3i)"].to_i
+    Task.find(params[:id]).update(name: get_params[:name], deadline: date)
+    flash[:danger] = date.to_s
     redirect_to root_url
   end
 
@@ -36,7 +39,7 @@ class TasksController < ApplicationController
 
   private 
   	def get_params
-  		params.require(:task).permit(:name,:deadline,:project_id)
+  		params.require(:task).permit(:name,:project_id, :done, "deadline(2i)", "deadline(3i)")
   	end
 
     def get_priority(project)
