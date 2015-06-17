@@ -13,27 +13,10 @@
 		<%= f.hidden_field :project_id, :value => project.id %>
 		<%= f.submit "Add Task", class: "btn btn-primary" %>
 	<% end %>
+	<br><hr>
 	<% if project.tasks.any? %>
 		<% project.tasks.order(priority: :desc).each do |x| %>
-			<h3>
-				<input type="checkbox" name="done" id="done" <%= 'checked' if x.done%>>
-				<%= x.name %>	
-				<p class="control">
-					<%= link_to("Up", up_path(x), method: :prioritizeUp) %>
-					<%= link_to("Down", down_path(x), method: :prioritizeDown) %>
-					<a href="#">Edit</a>
-					<%= link_to "Delete", x, class: "control",method: :delete  %>
-				</p>
-				<%= form_for(x) do |f| %>
-					<%= f.text_field :name %>
-					<%=	if x.deadline.nil?
-								f.date_select :deadline
-							else 
-								f.date_select :deadline, default: x.deadline
-							end %>
-					<%= f.submit "Save", class: "btn"  %>
-				<% end %>
-			</h3>
+			<h3><%= render x %></h3>
 		<% end %>
 	<% else %>
 		<h3>Empty</h3>

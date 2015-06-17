@@ -1,0 +1,17 @@
+<input type="checkbox" name="done" id="done" <%= 'checked' if task.done%>>
+<%= task.name %>	
+<p class="control">
+	<%= link_to("Up", up_path(task), method: :prioritizeUp) %>
+	<%= link_to("Down", down_path(task), method: :prioritizeDown) %>
+	<a href="#">Edit</a>
+	<%= link_to "Delete", task, class: "control",method: :delete  %>
+</p>
+<%= form_for(task) do |f| %>
+	<%= f.text_field :name %>
+	<%=	if task.deadline.nil?
+				f.date_select :deadline, discard_year: true
+			else 
+				f.date_select :deadline, discard_year: true, default: task.deadline
+			end %>
+	<%= f.submit "Save", class: "btn"  %>
+<% end %>
