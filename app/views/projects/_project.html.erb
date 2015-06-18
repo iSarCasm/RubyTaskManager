@@ -13,12 +13,10 @@
 		<%= f.hidden_field :project_id, :value => project.id %>
 		<%= f.submit "Add Task", class: "btn btn-primary" %>
 	<% end %>
-	<br><hr>
+	<br><hr id="tasks_anchor<%= project.id %>">
 	<% if project.tasks.any? %>
 		<% project.tasks.order(priority: :desc).each do |x| %>
-			<div id="task<%= x.id %>">
-				<%= render x %>
-			</div>
+			<%= render x %>
 		<% end %>
 	<% else %>
 		<h4>No tasks yet</h4>
