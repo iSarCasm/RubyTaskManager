@@ -1,40 +1,53 @@
 class TasksController < ApplicationController
   def create
   	project = Project.find(get_params[:project_id])
-  	@task = project.tasks.build(	name: 				get_params[:name],
+  	@task = project.tasks.create(	name: 				get_params[:name],
   																deadline: 		get_params[:deadline],
                                   priority:     get_priority(project),
                                   done:         0)
-  	if @task.save
-  		flash[:succes] = "ez pzzz"
-  	else 
-  		flash[:danger] = "wtffff"
-  	end
-  	redirect_to root_url
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
   end
 
   def update
     date = Date.new Time.now.year, get_params["deadline(2i)"].to_i, get_params["deadline(3i)"].to_i
-    Task.find(params[:id]).update(name: get_params[:name], deadline: date)
-    flash[:danger] = date.to_s
-    redirect_to root_url
+    @task = Task.find(params[:id])
+    @task.update(name: get_params[:name], deadline: date)
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
   end
 
   def destroy
-    Task.find(params[:id]).destroy
-    redirect_to root_url
+    @task = Task.find(params[:id])
+    @task.destroy
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
   end
 
   def prioritizeUp
-    t = Task.find(params[:id]).prioritizeUp
-    flash[:danger] = t
-    redirect_to root_url
+    @task = Task.find(params[:id])
+    @task.prioritizeUp
+     # redirect_to root_url
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
   end
 
   def prioritizeDown
-    t = Task.find(params[:id]).prioritizeDown
-    flash[:danger] = t
-    redirect_to root_url
+    @task = Task.find(params[:id])
+    @task.prioritizeDown
+    # redirect_to root_url
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
   end
 
   private 

@@ -1,12 +1,15 @@
 <input type="checkbox" name="done" id="done" <%= 'checked' if task.done%>>
-<%= task.name %>	
+<span id="taskname<%= task.id %>"><%= task.name %></span>
+<i id="taskdeadline<%= task.id %>">
+	<%= "(#{task.deadline})" unless task.deadline.nil?%>
+</i>
 <p class="control">
-	<%= link_to("Up", up_path(task), method: :prioritizeUp) %>
-	<%= link_to("Down", down_path(task), method: :prioritizeDown) %>
+<%= link_to("Up", up_path(task), method: :post, remote: true) %>
+	<%= link_to("Down", down_path(task), method: :post, remote: true) %>
 	<a href="#">Edit</a>
-	<%= link_to "Delete", task, class: "control",method: :delete  %>
+	<%= link_to "Delete", task, class: "control",method: :delete, remote: true %>
 </p>
-<%= form_for(task) do |f| %>
+<%= form_for(task, remote: true) do |f| %>
 	<%= f.text_field :name %>
 	<%=	if task.deadline.nil?
 				f.date_select :deadline, discard_year: true

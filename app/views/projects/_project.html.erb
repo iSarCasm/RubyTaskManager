@@ -1,14 +1,14 @@
-<li class="col-md-10 col-md-offset-1">
+<li class="col-md-10 col-md-offset-1" id="project<%= project.id %>">
 	<h2>
-		<%= project.name %>
-		<%= link_to "Delete", project, class: "control",method: :delete  %>
+		<span id="name<%= project.id %>"><%= project.name %></span>
+		<%= link_to "Delete", project, class: "control",method: :delete, remote: true  %>
 		<p class="control"><a href="#">Edit</a></p>
-		<%= form_for(project) do |f| %>
+		<%= form_for(project, remote: true) do |f| %>
 			<%= f.text_field :name %>
 			<%= f.submit "Save", class: "btn"  %>
 		<% end %>
 	</h2>
-	<%= form_for(@task) do |f| %>
+	<%= form_for(@task, remote: true) do |f| %>
 		<%= f.text_field :name, placeholder: "Type your task here..." %>
 		<%= f.hidden_field :project_id, :value => project.id %>
 		<%= f.submit "Add Task", class: "btn btn-primary" %>
@@ -16,7 +16,9 @@
 	<br><hr>
 	<% if project.tasks.any? %>
 		<% project.tasks.order(priority: :desc).each do |x| %>
-			<h3><%= render x %></h3>
+			<div id="task<%= x.id %>">
+				<%= render x %>
+			</div>
 		<% end %>
 	<% else %>
 		<h4>No tasks yet</h4>

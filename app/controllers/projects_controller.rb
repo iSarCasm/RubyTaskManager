@@ -1,23 +1,30 @@
 class ProjectsController < ApplicationController
 	def create
-		@project = current_user.projects.new(	name: 	get_params[:name],
-																				 date: 	Time.zone.now)
-		if @project.save
-			flash[:succes] = "ez pz"
-		else 
-			flash[:danger] = "wtf"
-		end
-		redirect_to root_url
+		@project = current_user.projects.create(	name: 	get_params[:name],
+																				 			date: 	Time.zone.now)
+		@task = Task.new
+		respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
 	end
 
 	def update
-		Project.find(params[:id]).update(name: get_params[:name])
-		redirect_to root_url
+		@project = Project.find(params[:id])
+		@project.update(name: get_params[:name])
+		respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
 	end
 
 	def destroy
-		Project.find(params[:id]).destroy
-		redirect_to root_url
+		@project = Project.find(params[:id])
+		@project.destroy
+		respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
 	end
 
 	private 
