@@ -31,9 +31,9 @@
 	<td class="date icon_date icon-date<%= '-active' unless task.deadline.nil? %>">
 		<span class="hidden"><%= task.id %></span>
 		<span class="ion-calendar">
-			<div class="triangle-border"></div>
+			<!-- <div class="triangle-border"></div>
 			<div class="triangle-left"></div>
-			<div class="recntagle"></div>
+			<div class="recntagle"></div> -->
 			<div class="date">
 				<span id="taskdeadline<%= task.id%>"><%= "#{monthname(task.deadline.month)} #{task.deadline.day}" unless task.deadline.nil?%></span>
 			</div>

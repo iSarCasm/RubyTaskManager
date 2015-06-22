@@ -11,7 +11,7 @@ $(document).ready(function() {
 	});
 
 	// SHOW new project input text field
-	$('#new_project_button').click(function(){
+	$('#new_project_button').click(function(event){
     var field = $('#project_name');
     if (field.css('display') == 'none')
     {
@@ -40,7 +40,7 @@ $(document).ready(function() {
 	  }
 	});
 
-	$('.project_title_save').click(function(){
+	$('.project_title_save').click(function(event){
 		var len = $(this).parents(".project_title_edit").find('input:text').val().length;
 		if(len>0 && len<=100) {
 			$(this).parents("tr").find('.project_title').css({'display':'inline'});
@@ -75,7 +75,7 @@ $(document).ready(function() {
 		$(this).parents("tr").find('.task_title_edit').find('input:text')[0].setSelectionRange(strLength, strLength);
 	});
 
-	$('.task_title_save').click(function(){
+	$('.task_title_save').click(function(event){
 		var len = $(this).parents(".task_title_edit").find('input:text').val().length;
 		if(len>0 && len<=100) {
 			$(this).parents("tr").find('.task_title').css({'display':'inline'});
@@ -92,7 +92,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('.task_add_submit').click(function(){
+	$('.task_add_submit').click(function(event){
 		var len = $(this).parents(".task-add").find('input:text').val().length;
 		if(len>0 && len<=100) {
 			
