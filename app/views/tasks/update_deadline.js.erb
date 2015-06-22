@@ -1,0 +1,1 @@
+$("#taskdeadline<%= @task.id%>").html('<%= "#{monthname(@task.deadline.month)} #{@task.deadline.day}" %>');

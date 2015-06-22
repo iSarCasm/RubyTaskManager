@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag "http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" %>
 </head>
 <body>
 	<%= render 'layouts/header' %>
@@ -13,6 +14,10 @@
 	  <div class="alert alert-<%= message_type %>"><%= message %></div>
 	<% end %>
 	<%= yield %>
+	<div id="notify" class="notify-error">
+		<div class="notify-title">Error.</div>
+		<div class="notify-text">Wow wow wow! Some error.</div>
+	</div>
 	<%= render 'layouts/footer' %>
 </body>
 </html>

@@ -1,24 +1,78 @@
-<li class="col-md-10 col-md-offset-1" id="project<%= project.id %>">
-	<h2>
-		<span id="name<%= project.id %>"><%= project.name %></span>
-		<%= link_to "Delete", project, class: "control",method: :delete, remote: true  %>
-		<p class="control"><a href="#">Edit</a></p>
-		<%= form_for(project, remote: true) do |f| %>
-			<%= f.text_field :name %>
-			<%= f.submit "Save", class: "btn"  %>
+<li id="project<%= project.id %>">
+	<table class="project project-head">
+		<tr>
+			<td class="icon icon-info">
+				<span class="ion-calendar"></span>
+			</td>
+			<td colspan="2" class="title">
+				<div class="project_title">
+					<span id="name<%= project.id %>"><%= project.name %></span>
+				</div> 
+				<div class="edit-form project_title_edit">
+					<%= form_for(project, remote: true) do |f| %>
+						<%= f.text_field :name %>
+						<%= f.submit "Save", class: 'project_title_save'  %>
+					<% end %>
+				</div>
+			</td>
+			<td class="icon icon-edit">
+				<a href="#" class="ion-edit project_edit_button"></a>
+			</td>
+			<td class="icon icon-delete">
+				<%= link_to "", project, class: "ion-trash-a",method: :delete, remote: true  %>
+			</td>
+		</tr>
+		<!-- TASK FORM -->
+		<tr>
+			<td class="task-add icon plus">
+				<span class="ion-plus"></span>
+			</td>
+			<td colspan="4" class="task-add" >
+				<%= form_for(@task, remote: true) do |f| %>
+				<%= f.text_field :name, placeholder: "Type your task here..." %>
+				<%= f.hidden_field :project_id, :value => project.id %>
+				<%= f.submit "Add Task", class: "task_add_submit"%>
+				<% end %>
+				
+			</td>
+		</tr>
+	</table>
+
+	<table class="project project-list">
+		<!-- TASK LIST -->
+		<caption id="tasks_anchor<%= project.id %>"></caption>
+		<% if project.tasks.any? %>
+			<% project.tasks.order(priority: :desc).each do |x| %>
+				<%= render x %>
+			<% end %>
+				<tr id="_not_empty<%= project.id %>">
+					<td></td>
+					<td class="last-row"></td>
+					<td class="last-title"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr style="display: none" id="_empty<%= project.id %>">
+					<td class="empty">
+							No tasks yet :(
+					</td>
+				</tr>
+		<% else %>
+			<tr style="display:none" id="_not_empty<%= project.id %>">
+				<td></td>
+				<td class="last-row"></td>
+				<td class="last-title"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr id="_empty<%= project.id %>">
+				<td class="empty">
+						No tasks yet :(
+				</td>
+			</tr>
 		<% end %>
-	</h2>
-	<%= form_for(@task, remote: true) do |f| %>
-		<%= f.text_field :name, placeholder: "Type your task here..." %>
-		<%= f.hidden_field :project_id, :value => project.id %>
-		<%= f.submit "Add Task", class: "btn btn-primary" %>
-	<% end %>
-	<br><hr id="tasks_anchor<%= project.id %>">
-	<% if project.tasks.any? %>
-		<% project.tasks.order(priority: :desc).each do |x| %>
-			<%= render x %>
-		<% end %>
-	<% else %>
-		<h4>No tasks yet</h4>
-	<% end %>
+	</table>
 </li>
+

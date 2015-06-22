@@ -1,22 +1,49 @@
-<div id="task<%= task.id %>">
-	<input type="checkbox" name="done" id="done" <%= 'checked' if task.done%>>
-	<span id="taskname<%= task.id %>"><%= task.name %></span>
-	<i id="taskdeadline<%= task.id %>">
-		<%= "(#{task.deadline})" unless task.deadline.nil?%>
-	</i>
-	<p class="control">
-	<%= link_to("Up", up_path(task), method: :post, remote: true) %>
-		<%= link_to("Down", down_path(task), method: :post, remote: true) %>
-		<a href="#">Edit</a>
-		<%= link_to "Delete", task, class: "control",method: :delete, remote: true %>
-	</p>
-	<%= form_for(task, remote: true) do |f| %>
-		<%= f.text_field :name %>
-		<%=	if task.deadline.nil?
-					f.date_select :deadline, discard_year: true
-				else 
-					f.date_select :deadline, discard_year: true, default: task.deadline
-				end %>
-		<%= f.submit "Save", class: "btn"  %>
-	<% end %>
-</div>
+<tr class="task" id="task<%= task.id %>">
+	<td class="done">
+		<input type="checkbox" name="done" class="task_done" <%= 'checked' if task.done%>>
+		<%= form_for(task,url: done_path(task), remote: true, class: "hidden") do |f| %>
+			<%= f.hidden_field :done, :value => task.done, class: "checkbox_value" %>
+			<%= f.submit "Save", class: "hidden"  %>
+		<% end %>
+	</td>
+	<td class="row"></td>
+	<td class="title">
+		<div class="task_title">
+			<span class="name" id="taskname<%= task.id %>"><%= task.name %></span>
+		</div>
+		<div class="edit-form task_title_edit">
+			<%= form_for(task,url: update_title_path(task), remote: true) do |f| %>
+				<%= f.text_field :name %>
+				<%= f.submit "Save", class: "task_title_save"  %>
+			<% end %>
+		</div>
+	</td>
+	<td class="move icon-move">
+		<div><sub><%= link_to("", up_path(task), class: "ion-arrow-up-b", method: :post, remote: true) %></sub></div>
+		<div><sup><%= link_to("", down_path(task),class: "ion-arrow-down-b", method: :post, remote: true) %></sup></div>
+	</td>
+	<td class="edit icon-edit">
+		<a class="ion-edit task_edit_button" href="#"></a>
+	</td>
+	<td class="delete icon-delete">
+		<%= link_to "", task, class: "ion-trash-a",method: :delete, remote: true %>
+	</td>
+	<td class="date icon_date icon-date<%= '-active' unless task.deadline.nil? %>">
+		<span class="hidden"><%= task.id %></span>
+		<span class="ion-calendar">
+			<div class="triangle-border"></div>
+			<div class="triangle-left"></div>
+			<div class="recntagle"></div>
+			<div class="date">
+				<span id="taskdeadline<%= task.id%>"><%= "#{monthname(task.deadline.month)} #{task.deadline.day}" unless task.deadline.nil?%></span>
+			</div>
+		</span>
+	</td>
+</tr>
+
+<%= render :partial => 'tasks/frontwindow', :locals =>
+	   { task: task }  %>
+
+
+
+

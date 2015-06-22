@@ -1,1 +1,8 @@
-$("#project<%= @project.id%>").remove();
+var li = $("#project<%= @project.id%>");
+var height = li.height();
+li.children().fadeOut(300,function(){
+	li.css({'height':height});
+	li.animate({'height':'0px'}, 300, function(){
+		li.remove();
+	});
+});

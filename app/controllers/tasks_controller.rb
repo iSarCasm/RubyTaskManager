@@ -11,10 +11,20 @@ class TasksController < ApplicationController
     end
   end
 
-  def update
+  def update_title
+    @task = Task.find(params[:id])
+    @task.update(name: get_params[:name])
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
+  end
+
+
+  def update_deadline
     date = Date.new Time.now.year, get_params["deadline(2i)"].to_i, get_params["deadline(3i)"].to_i
     @task = Task.find(params[:id])
-    @task.update(name: get_params[:name], deadline: date)
+    @task.update(deadline: date)
     respond_to do |format|
       format.html { redirect_to root_url }
       format.js
@@ -24,6 +34,15 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
+  end
+
+  def done
+    @task = Task.find(params[:id])
+    @task.update(done: get_params[:done])
     respond_to do |format|
       format.html { redirect_to root_url }
       format.js
@@ -52,7 +71,7 @@ class TasksController < ApplicationController
 
   private 
   	def get_params
-  		params.require(:task).permit(:name,:project_id, :done, "deadline(2i)", "deadline(3i)")
+  		params.require(:task).permit(:name,:project_id, :done, "deadline(1i)","deadline(2i)", "deadline(3i)")
   	end
 
     def get_priority(project)

@@ -1,3 +1,94 @@
-$("#tasks_anchor<%=@task.project_id%>").after("<%= escape_javascript("#{render :partial => 'tasks/task', :locals =>
-   { task: @task }}").html_safe %>");
-$("h4").remove();
+var errTime = 0;
+<% if @task.name.length > 0 && @task.name.length <= 100 %>
+	$("#tasks_anchor<%=@task.project_id%>").after("<%= escape_javascript("#{render :partial => 'tasks/task', :locals =>
+	   { task: @task }}").html_safe %>");
+	$("#projects").after("<%= escape_javascript("#{render :partial => 'tasks/frontwindow', :locals =>
+	   { task: @task }}").html_safe %>");
+
+	$("h4").remove();
+	$("#_empty<%= @task.project_id %>").hide();
+	$("#_not_empty<%= @task.project_id %>").show();
+
+
+
+
+	$('.task_edit_button').click(function(){
+		$(this).parents("tr").find('.task_title_edit').css({'display':'block'});
+		$(this).parents("tr").find('.task_title').css({'display':'none'});
+		$(this).parents("tr").find('.task_title_edit').find('input:text').focus()
+		var strLength = $(this).parents("tr").find('.task_title_edit').find('input:text').val().length * 2;
+		$(this).parents("tr").find('.task_title_edit').find('input:text')[0].setSelectionRange(strLength, strLength);
+	});
+	$('#task<%= @task.id %>').find('.task_title_save').click(function(){
+		var len = $(this).parents(".task_title_edit").find('input:text').val().length;
+		if(len>0 && len<=100) {
+			$(this).parents("tr").find('.task_title').css({'display':'inline'});
+			$(this).parents(".task_title_edit").css({'display':'none'});
+			// pre-change content
+			$(this).parents('td').find('.task_title').find('span').text($(this).parents(".task_title_edit").find('input:text').val());
+		} else {
+			event.preventDefault();
+			if(len<=0) {
+		  		showError("Task cant be blank!");
+	  		} else {
+	  			showError("Maximum task length is 100!");
+	  		}
+		}
+	});
+	$('#task<%= @task.id %>').find('.icon_date').click(function(){
+		var id = $(this).find('.hidden').text();
+		$('#front_window_'+id.toString()).css({'display':'flex'}).hide().fadeIn(300);
+	});
+	$('#front_window_<%= @task.id %>').find('.deadline_close').click(function(){
+		$(this).parents('.front-window').fadeOut(300);
+	});
+	$('#front_window_<%= @task.id %>').find('.deadline_sub').click(function(){
+		var id = $(this).parents('.front-window').find('.hidden').text();
+		var x= $('#task'+id.toString()).find('.icon_date');
+		x.removeClass('icon-date');
+		x.addClass('icon-date-active');
+		var y = $(x.find('.ion-calendar'));	
+		y.hide();
+		$(this).parents('.front-window').fadeOut(300, function(){
+			y.removeAttr('style');
+		});
+	});
+	$('#task<%= @task.id %>').find('.task_done').change(function(){
+		var val = $(this).parents('td').find('.checkbox_value');
+		if($(this).is(":checked")) {
+			val.val('true');
+		} else {
+			val.val('false');
+		}
+		$(this).parents('td').find(':submit').submit();
+	});
+
+
+
+
+
+	$("#task<%=@task.id%>").children('td').children().hide();
+	$("#task<%=@task.id%>").children().css({'height':'0px'});
+	$("#task<%=@task.id%>").children().animate({'height':'50px'},300);
+	setTimeout(function(){
+		$("#task<%=@task.id%>").children('td').children().not('.task_title_edit').fadeIn(200);
+	},200);
+<% end %>
+$("#tasks_anchor<%=@task.project_id%>").parents('li').find('input:text').val('');
+
+
+
+
+
+var showError = function(text) {
+	clearTimeout(errTime);
+	var not = $('#notify')
+	var not_title = $('.notify-text');
+	not.css({'right':'-310px'});
+	not_title.text(text);
+	not.animate({'right':'0px'},200);
+	errTime = setTimeout(function(){
+		not.animate({'right':'-310px'},100);
+	},3000);
+};
+

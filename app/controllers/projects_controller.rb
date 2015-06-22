@@ -1,7 +1,8 @@
 class ProjectsController < ApplicationController
 	def create
-		@project = current_user.projects.create(	name: 	get_params[:name],
+		@project = current_user.projects.build(	name: 	get_params[:name],
 																				 			date: 	Time.zone.now)
+		@project.save;
 		@task = Task.new
 		respond_to do |format|
       format.html { redirect_to root_url }

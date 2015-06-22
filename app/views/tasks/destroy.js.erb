@@ -1,1 +1,10 @@
-$("#task<%=@task.id%>").remove();
+if ( $("#task<%=@task.id%>").parents('table').find('.task').length == 1) {;
+	$("#_empty<%= @task.project_id %>").show();
+	$("#_not_empty<%= @task.project_id %>").hide();
+} 
+
+$("#task<%=@task.id%>").children('td').children().fadeOut(200);
+$("#task<%=@task.id%>").children().animate({'height':'0px'},500, function() {
+	$("#task<%=@task.id%>").remove();
+});
+

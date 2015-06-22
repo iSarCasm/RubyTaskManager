@@ -1,24 +1,24 @@
 <div class="omniauth">
-	<% unless signed_in? %>
-		<p><%= link_to("Sign in with Facebook", user_omniauth_authorize_path(:facebook)) %>
-		<p><%= link_to("Sign in with VK", user_omniauth_authorize_path(:vkontakte)) %>
-	<% else %>
-		<p><%= link_to("Logout", "logout" , method: :delete) %></p>
-	<% end %>
+	<div style="<%= 'display:none' if signed_in? %>">
+		<p class="login">Please login</p>
+		<p><%= link_to(image_tag(image_url('sign-in-facebook.png'), width: 200), user_omniauth_authorize_path(:facebook)) %>
+		<p><%= link_to(image_tag(image_url('sign-in-vk.png'), width: 200, height: 40), user_omniauth_authorize_path(:vkontakte)) %>
+	</div>
+	<span class="logout"  style="<%= 'display:none' unless signed_in? %>">
+		<%= link_to("Logout", "logout" ,remote: true, method: :delete) %>
+	</span>
 </div>
 <% if signed_in? %>
-	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
-			<center>
+	<center>
+	<div class="projects">
 			<%= form_for(@project, remote: true) do |f| %>
-				<div class="col-md-8"><%= f.text_field :name, class: 'form-control' %></div>
-
-				<div class="col-md-4"><%= f.submit "Add TODO List", class: "btn btn-primary"  %></div>
+				<%= f.text_field :name %>
+				<%= f.submit "Add TODO List", class: "ion-plus", id: "new_project_button"%> <!-- id used by JS -->
 			<%end%>
-			</center>
-		</div>
-		<div class="col-md-6 col-md-offset-3">
+		<br>
+		<div>
 			<%= render 'shared/projects' %>
 		</div>
 	</div>
+	</center>
 <% end %>
