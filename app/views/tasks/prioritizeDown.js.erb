@@ -1,1 +1,1 @@
-$("#task<%=@task.prioritizeResult.split(';')[0]%>").insertAfter($("#task<%= @task.prioritizeResult.split(';')[1] %>"));
+$("#task<%=@task.prioritizeResult.split(';')[1]%>").insertBefore($("#task<%= @task.prioritizeResult.split(';')[0] %>"));
