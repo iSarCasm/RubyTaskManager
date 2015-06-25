@@ -51,7 +51,7 @@ class TasksController < ApplicationController
 
   def prioritizeUp
     @task = Task.find(params[:id])
-    @task.prioritizeUp
+    @result = @task.prioritizeUp
      # redirect_to root_url
     respond_to do |format|
       format.html { redirect_to root_url }
@@ -61,7 +61,7 @@ class TasksController < ApplicationController
 
   def prioritizeDown
     @task = Task.find(params[:id])
-    @task.prioritizeDown
+    @result = @task.prioritizeDown
     # redirect_to root_url
     respond_to do |format|
       format.html { redirect_to root_url }

@@ -1,3 +1,4 @@
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -64,7 +65,7 @@ footer .label:hover {
 
 //LOGIN
 .omniauth {
-	font-family: Verdana, sans serif; 
+	font-family: Verdana, sans serif;
 	font-size: 20px;
 	text-align: center;
 	text-transform: uppercase;
@@ -100,7 +101,7 @@ footer .label:hover {
 
 .projects .new_project input[type='text']{
 	width: 600px;
-	height: 40px; 
+	height: 40px;
 	font-size: 16px;
 	font-weight: bold;
 	display: none;
@@ -277,7 +278,7 @@ footer .label:hover {
 	display: block;
 	position: absolute;
 	left: 40px;
-	top: -30px;
+	top: -10px;
 	width: 150px;
 	height: 40px;
 	text-align:center;
@@ -635,11 +636,20 @@ tr:hover .ion-calendar .triangle-left {
     transition: box-shadow 0.3s;
 }
 
+.done-task {
+	background-color: rgb(222,255,222) !important;
+}
+
 
 
 //TASK
 
-
+.tabs {
+	position: relative;
+	clear: both;
+	margin: 25px 0;
+	min-height: 350px;
+}
 
 .sql {
 	display: block;
@@ -647,14 +657,63 @@ tr:hover .ion-calendar .triangle-left {
 	margin: 80px auto;
 	color: white;
 	background-color: #06266f;
-	min-height: 100px;
 	text-transform: capitalize;
 
 	.tab{
-		margin: 20px 0px;
-		height: 300px;
-		width: 700px;
-		background-color: #2a4480;
+		float: left;
+		.content {
+			border: 1px solid gray;
+			position: absolute;
+			top: 20px;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 300px;
+			width: 700px;
+			background-color: #2a4480;
+			overflow-y: scroll;
+		}
+		table{
+			width: 670px;
+		}
+		th{
+			padding: 5px 10px;
+		}
+		td {
+			padding: 5px 10px;
+			min-width: 50px;
+			border: 1px dashed gray;
+		}
+		label {
+			font-size: 10px;
+			width: 100px;
+			height: 20px;
+			background: #2a4480;
+			padding: 5px;
+			margin-left: -1px;
+			position: relative;
+			left: 1px;
+		}
+		[type=radio] {
+			display: none;
+		}
+
+		[type=radio]:checked ~ label {
+			border-top: 3px solid orange;
+			background: #2a4480;
+			z-index: 2;
+		}
+		[type=radio]:checked ~ label ~ .content {
+			background: #2a4480;
+			z-index: 1;
+		}
+
+		pre {
+			text-transform: none;
+			border: none;
+			color: white;
+			background-color: #2a4480;
+		}
 	}
 
 	.yellow{
@@ -666,4 +725,9 @@ tr:hover .ion-calendar .triangle-left {
 	.green{
 		background-color: rgb(70,200,70);
 	}
+}
+
+
+.error-field {
+	box-shadow: 0 0 30px rgba(255,0,0,0.8);
 }

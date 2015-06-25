@@ -1,4 +1,4 @@
-<tr class="task" id="task<%= task.id %>">
+<tr class="task <%='done-task' if task.done%>" id="task<%= task.id %>">
 	<td class="done">
 		<input type="checkbox" name="done" class="task_done" <%= 'checked' if task.done%>>
 		<%= form_for(task,url: done_path(task), remote: true, class: "hidden") do |f| %>
@@ -43,7 +43,3 @@
 
 <%= render :partial => 'tasks/frontwindow', :locals =>
 	   { task: task }  %>
-
-
-
-

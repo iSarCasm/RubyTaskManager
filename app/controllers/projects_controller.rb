@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
 	def create
-		@project = current_user.projects.build(	name: 	get_params[:name],
-																				 			date: 	Time.zone.now)
+		@project = current_user.projects.create(	name: 	get_params[:name])
 		@project.save;
 		@task = Task.new
 		respond_to do |format|

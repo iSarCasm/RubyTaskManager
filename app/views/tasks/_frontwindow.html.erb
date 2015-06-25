@@ -2,7 +2,7 @@
 	<div class="date-select">
 		<div class="title">Select deadline date</div>
 		<span class="hidden"><%= task.id %></span>
-		<%= form_for(task,url: update_deadline_path(task), remote: true) do |f| %>
+			<%= form_for(task,url: update_deadline_path(task), remote: true) do |f| %>
 				<%=	if task.deadline.nil?
 							f.date_select :deadline, discard_year: true
 						else 

@@ -1,5 +1,4 @@
 class Task < ActiveRecord::Base
-  attr_accessor :prioritizeResult
 
   belongs_to :project
   validates :name, presence: true, length: {maximum: 100}
@@ -12,7 +11,7 @@ class Task < ActiveRecord::Base
   	q = Task.find_by_sql(taskAbove).first
   	q.update(priority: q.priority-1)
   	update_attribute(:priority, priority+1)
-    self.prioritizeResult = "#{id};#{q.id}"
+    return "#{id};#{q.id}"
   end
 
   def prioritizeDown
@@ -23,6 +22,6 @@ class Task < ActiveRecord::Base
   	q = Task.find_by_sql(taskDown).first
   	q.update(priority: q.priority+1)
   	update_attribute(:priority, priority-1)
-    self.prioritizeResult = "#{id};#{q.id}"
+    return "#{id};#{q.id}"
   end
 end

@@ -8,6 +8,7 @@ gem 'uglifier',               '>= 1.3.0'
 gem 'coffee-rails',           '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 gem 'jbuilder',               '~> 2.0'
 gem 'devise'
 gem 'omniauth'
@@ -23,12 +24,12 @@ group :development, :test do
   gem 'spring'
 end
 
-group :test do 
+group :test do
 
 end
 
-group :production do 
+group :production do
   gem 'pg',                   '0.17.1'    #for heroku Postgres
-  gem 'rails_12factor',       '0.0.2'     #for heroku static assets  
+  gem 'rails_12factor',       '0.0.2'     #for heroku static assets
   gem 'puma',           '2.11.1'
 end

@@ -1,49 +1,6 @@
-var errTime = 0;
-<% if @project.name.length > 0 && @project.name.length <= 100 %>
+<% if @project.valid?%>
 	$("#projects").prepend("<%= escape_javascript("#{render :partial => 'projects/project', :locals => { project: @project }}").html_safe %>");
 	
-	$('#project<%= @project.id %>').find('.project_title_save').click(function(){
-		var len = $(this).parents(".project_title_edit").find('input:text').val().length;
-		if(len>0 && len<=100) {
-			$(this).parents("tr").find('.project_title').css({'display':'inline'});
-			$(this).parents(".project_title_edit").css({'display':'none'});
-			// pre-change content
-			$(this).parents('td').find('.project_title').find('span').text($(this).parents(".project_title_edit").find('input:text').val());
-		} else {
-				event.preventDefault();
-	  		if(len<=0) {
-		  		showError("Project title cant be blank!");
-	  		} else {
-	  			showError("Maximum project title length is 100!");
-	  		}
-		  }
-	});
-	$('.project_edit_button').click(function(){
-		//project edit
-		$(this).parents("tr").find('.project_title_edit').css({'display':'block'});
-		$(this).parents("tr").find('.project_title').css({'display':'none'});
-		$(this).parents("tr").find('.project_title_edit').find('input:text').focus();
-		var strLength = $(this).parents("tr").find('.project_title_edit').find('input:text').val().length * 2;
-		$(this).parents("tr").find('.project_title_edit').find('input:text')[0].setSelectionRange(strLength, strLength);
-		
-	});
-	$('#project<%= @project.id %>').find('.task_add_submit').click(function(){
-		var len = $(this).parents(".task-add").find('input:text').val().length;
-		if(len>0 && len<=100) {
-			
-		} else {
-			event.preventDefault();
-			if(len<=0) {
-		  		showError("Task cant be blank!");
-	  		} else {
-	  			showError("Maximum task length is 100!");
-	  		}
-		}
-	});
-
-
-
-
 
 	$('#project<%= @project.id %>').children().hide();
 	$('#project<%= @project.id %>').animate({'margin-bottom':'190px'},300, "swing", function() {
@@ -52,18 +9,4 @@ var errTime = 0;
 	});
 	
 <% end %>
-
-
-
-var showError = function(text) {
-	clearTimeout(errTime);
-	var not = $('#notify')
-	var not_title = $('.notify-text');
-	not.css({'right':'-310px'});
-	not_title.text(text);
-	not.animate({'right':'0px'},200);
-	errTime = setTimeout(function(){
-		not.animate({'right':'-310px'},100);
-	},3000);
-};
 

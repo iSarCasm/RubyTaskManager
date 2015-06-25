@@ -1,0 +1,35 @@
+<div class="tabs">
+	<div class="tab">
+		<input type="radio" id="tab-<%= 1+n*2 %>" name="tab-group-<%=n+1%>">
+		<label for="tab-<%= 1+n*2 %>">SQL Query</label>
+		<div class="content">
+				<pre><code class="ruby">
+<%= function  %>
+				</code></pre>
+			</div>
+	</div>
+	<div class="tab">
+		<input type="radio" id="tab-<%= 2+n*2 %>" name="tab-group-<%=n+1%>" checked>
+		<label for="tab-<%= 2+n*2 %>">Result</label>
+		<div class="content">
+			<table>
+				<tr>
+					<% header.each do |q| %>
+						<th>
+							<%= q %>
+						</th>
+					<% end %>
+				</tr>
+				<% parsed.each do |x| %>
+					<tr>
+						<% x.each do |y| %>
+							<td>
+								<%= y %>
+							</td>
+						<%end%>
+					</tr>
+				<%end%>
+			</table>
+		</div>
+	</div>
+</div>
