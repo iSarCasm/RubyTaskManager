@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     @header = Array.new
 
     @query[0] = 'Task.select(:done, :deadline).order(name: :asc).distinct'
-    @sql[0] = Task.select(:done, :deadline).distinct.order(name: :asc)
+    @sql[0] = Task.select(:name, :done, :deadline).distinct.order(name: :asc)
     @header[0] = ["ID","Done?","Deadline"]
 
     @query[1] = 'Task.joins(:project).group(:project_id).select("projects.name, COUNT(*) as TaskCount").order("TaskCount DESC")'
