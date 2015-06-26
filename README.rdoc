@@ -3,5 +3,7 @@ This is one of my very first projects on Ruby on Rails. This is made spcially fo
 
 == Ruby Tasker
 Is a simple TO-DO list. You can add/update/delete your projects and tasks. The full specification you can find here:
+https://github.com/iSarCasm/RubyTaskManager/blob/master/test_task_ruby_rails_course.pdf
+https://github.com/iSarCasm/RubyTaskManager/blob/master/test_task_view.png
 
 
