@@ -6,7 +6,38 @@
 			Get <mark class="yellow">all statuses</mark>, not repeating, <mark class="green">alphabetically</mark> ordered
 			<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[0], header: @header[0], function: @query[0], n: 0} %>
 		</li>
-
+		<li>
+			get the <mark class="yellow">count</mark> of <mark class="red">all tasks</mark> in each project, Get order by <mark class="green">tasks count descending</mark>
+				<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[1], header: @header[1], function: @query[1], n: 1} %>
+		</li>
+		<li>
+			get the <mark class="yellow">count</mark> of <mark class="red">all tasks</mark> in each project, order by <mark class="green">projects names</mark>
+				<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[2], header: @header[2], function: @query[2], n: 2} %>
+		</li>
+		<li>
+			get the <mark class="yellow">tasks</mark> for all <mark class="red">projects</mark> having the name <mark class="red">beginning with “N”</mark> letter
+				<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[3], header: @header[3], function: @query[3], n: 3} %>
+		</li>
+		<li>
+			get the list of all <mark class="yellow">projects</mark> containing the <mark class="red">‘a’ letter in the middle of the name</mark>, and
+			show the <mark class="yellow">tasks count</mark> near each project. Mention that there can exist projects without
+			tasks and tasks with project_id=NULL
+				<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[4], header: @header[4], function: @query[4], n: 4} %>
+		</li>
+		<li>
+			get the list of <mark class="yellow">tasks</mark> with <mark class="red">duplicate names.</mark> Order <mark class="green">alphabetically</mark>
+				<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[5], header: @header[5], function: @query[5], n: 5} %>
+		</li>
+		<li>
+			get the list of <mark class="yellow">tasks</mark> having several exact <mark class="red">matches</mark> of both <mark class="red">name</mark> and <mark class="red">status</mark>, from
+			the <mark class="red">project ‘Garage’.</mark> Order by <mark class="green">matches count</mark>
+				<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[6], header: @header[6], function: @query[6], n: 6} %>
+		</li>
+		<li>
+			get the list of <mark class="yellow">project names</mark> having <mark class="red">more than 10 tasks in status ‘completed’.</mark> Order
+			by <mark class="green">project_id</mark>
+				<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[7], header: @header[7], function: @query[7], n: 7} %>
+		</li>
 	</ol>
 	<center>
 		<p>
