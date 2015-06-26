@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   	@project = Project.new
   	if signed_in?
   		@projects = Project.where('user_id = ?', current_user.id).order('projects.created_at DESC')
-  	else 
+  	else
   		@projects = Array.new(0)
   	end
   	@task = Task.new
@@ -14,7 +14,10 @@ class UsersController < ApplicationController
 
   def destroy
   	sign_out current_user
-  	redirect_to root_url
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js
+    end
   end
 
   def sql

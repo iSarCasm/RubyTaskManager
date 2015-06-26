@@ -12,10 +12,3 @@ production:
   VK_SECRET: c5K6BbHFTyxgPpRkbKJ9
   GMAIL_USERNAME: myemail@mydomain.com
   GMAIL_PASSWORD: myproductionpassword123
-test:
-  FACEBOOK_APPID: 467638323400644
-  FACEBOOK_SECRET: 8046daee11aa5e370c1239a922e0f18e
-  VK_APPID: 4961869
-  VK_SECRET: oj4elYnj0zx3XBuYQJFE
-  GMAIL_USERNAME: myemail@gmail.com
-  GMAIL_PASSWORD: monkey123
