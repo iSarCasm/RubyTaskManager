@@ -27,15 +27,15 @@ class UsersController < ApplicationController
     @header = Array.new
 
     @query[0] = 'Task.select(:done, :deadline).order(name: :asc).distinct'
-    @sql[0] = Task.joins(:project).group(:project_id).select("projects.name, COUNT(*) as TaskCount").order("projects.name ASC")
+    @sql[0] = Task.select("projects.name AS pName","tasks.*").joins(:project).where("projects.name LIKE ?",'N%')
     @header[0] = ["ID","Done?","Deadline"]
 
     @query[1] = 'Task.joins(:project).group(:project_id).select("projects.name, COUNT(*) as TaskCount").order("TaskCount DESC")'
-    @sql[1] = Task.joins(:project).group(:project_id).select("projects.name, COUNT(*) as TaskCount").order("projects.name ASC")
+    @sql[1] = Task.select("projects.name AS pName","tasks.*").joins(:project).where("projects.name LIKE ?",'N%')
     @header[1] = ["ID", "Project name","Task Count"]
 
     @query[2] = 'Task.joins(:project).group(:project_id).select("projects.name, COUNT(*) as TaskCount").order("projects.name ASC")'
-    @sql[2] = Task.joins(:project).group(:project_id).select("projects.name, COUNT(*) as TaskCount").order("projects.name ASC")
+    @sql[2] = Task.select("projects.name AS pName","tasks.*").joins(:project).where("projects.name LIKE ?",'N%')
     @header[2] = ["ID", "Project name","Task Count"]
 
     @query[3] = ' Task.select("projects.name AS pName","tasks.*").joins(:project).where("projects.name LIKE ?","N%"")'
