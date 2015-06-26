@@ -52,11 +52,11 @@ class UsersController < ApplicationController
     @header[5] = ["ID", "Name","priority","done?","deadline","project_id","created_at","updated_at"]
 
     @query[6] = ' Task.joins(:project).where("projects.name = ?","Garage").group("tasks.name, tasks.done, tasks.deadline").having("COUNT(*)>1").select("tasks.*, COUNT(*)").order("COUNT(*) DESC")'
-    @sql[6] = Task.where("tasks.done = ?",true).joins(:project).group(:project_id).having("COUNT(*)>=10").select("projects.name, COUNT(*) as TaskCount").order("projects.id DESC")
+    @sql[6] = Task.group(:name).having("COUNT(*)>1").order(name: :asc)
     @header[6] = ["ID", "Name","priority","done?","deadline","project_id","created_at","updated_at","Matches"]
 
     @query[7] = ' Task.where("tasks.done = ?",true).joins(:project).group(:project_id).having("COUNT(*)>=10").select("projects.name, COUNT(*) as TaskCount").order("projects.id DESC")'
-    @sql[7] = Task.where("tasks.done = ?",true).joins(:project).group(:project_id).having("COUNT(*)>=10").select("projects.name, COUNT(*) as TaskCount").order("projects.id DESC")
+    @sql[7] = Task.group(:name).having("COUNT(*)>1").order(name: :asc)
     @header[7] = ["ID", "Project name","Done Task Count"]
 
 
