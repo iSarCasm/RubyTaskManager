@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @header[2] = ["ID", "Project name","Task Count"]
 
     @query[3] = ' Task.select("projects.name AS pName","tasks.*").joins(:project).where("projects.name LIKE ?","N%"")'
-    @sql[3] = Task.select("projects.name AS pName","tasks.*").joins(:project).where("projects.name LIKE ?",'N%')
+    @sql[3] = Task.select("projects.name AS pName","tasks").joins(:project).where("projects.name LIKE ?",'N%')
     @header[3] = ["ID", "Name","priority","done?","deadline","project_id","created_at","updated_at","Project name"]
 
     @query[4] = 'Project.joins("LEFT OUTER JOIN tasks ON projects.id = tasks.project_id").group(:project_id).select("projects.*, COUNT(tasks.project_id) as TaskCount")
