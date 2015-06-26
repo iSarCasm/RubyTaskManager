@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     @header = Array.new
 
     @query[0] = 'Task.select(:done, :deadline).order(name: :asc).distinct'
-    @sql[0] = Task.select("tasks.name, DISTINCT ON (tasks.done, tasks.deadline)").order(name: :asc)
+    @sql[0] = Task.select("DISTINCT ON (done) name, done, deadline").order(name: :asc)
     @header[0] = ["ID","Name","Done?","Deadline"]
 
 
