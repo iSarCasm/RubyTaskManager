@@ -1,28 +1,7 @@
-== README
+== WHAT IS THIS
+This is one of my very first projects on Ruby on Rails. This is made spcially for RubyGarage as a test for applying to their Ruby courses.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+== Ruby Tasker
+Is a simple TO-DO list. You can add/update/delete your projects and tasks. The full specification you can find here:
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
