@@ -4,11 +4,11 @@
 	<ol>
 		<li>
 			Get <mark class="yellow">all statuses</mark>, not repeating, <mark class="green">alphabetically</mark> ordered
-			<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[0], header: @header[0], function: @query[0], n: 0} %>
+			<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[0],header: @header[0], function: @query[0], n: 0} %>
 		</li>
 		<li>
 			get the <mark class="yellow">count</mark> of <mark class="red">all tasks</mark> in each project, Get order by <mark class="green">tasks count descending</mark>
-				<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[1], header: @header[1], function: @query[1], n: 1} %>
+			<%= render partial: 'shared/xmltable', locals: {parsed: @parsed[1], header: @header[1], function: @query[1], n: 1} %>
 		</li>
 		<li>
 			get the <mark class="yellow">count</mark> of <mark class="red">all tasks</mark> in each project, order by <mark class="green">projects names</mark>

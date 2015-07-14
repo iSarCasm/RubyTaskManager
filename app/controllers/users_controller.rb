@@ -27,46 +27,59 @@ class UsersController < ApplicationController
     @header = Array.new
 
     sql = ActiveRecord::Base.connection()
-    # @query[0] = 'Task.select(:done, :deadline).order(name: :asc).distinct'
-    @query[0] = 'SELECT * FROM (SELECT DISTINCT ON (done) Task.done, Task.*
-                                FROM "Task"
-                                ORDER BY done)
-                ORDER BY name'
-    @sql[0] = sql.execute(@query[0])
-    @header[0] = ["ID","Done?","Deadline"]
+    @query[0] = 'SELECT * FROM (SELECT DISTINCT done, deadline
+                                FROM "tasks"
+                                ORDER BY done) AS sub
+                 ORDER BY done'
+    @header[0] = ["Done?","Deadline"]
 
-    @query[1] = 'Task.joins(:project).group(:project_id).select("projects.name, COUNT(*) as TaskCount").order("TaskCount DESC")'
-    @sql[1] = Task.joins(:project).group(:project_id).select("projects.name, COUNT(*) as TaskCount").order("TaskCount DESC")
-    @header[1] = ["ID", "Project name","Task Count"]
+    @query[1] = ' SELECT projects.name, COUNT(distinct tasks.id) as task_count
+                  FROM  tasks INNER JOIN projects ON (projects.id = tasks.project_id)
+                  GROUP BY projects.id
+                  ORDER BY task_count DESC'
+    @header[1] = ["Project name","Task Count"]
+    @query[2] = ' SELECT projects.name, COUNT(distinct tasks.id) as task_count
+                  FROM  tasks INNER JOIN projects ON (projects.id = tasks.project_id)
+                  GROUP BY projects.id
+                  ORDER BY projects.name ASC'
+    @header[2] = ["Project name","Task Count"]
 
-    @query[2] = 'Task.joins(:project).group(:project_id).select("projects.name, COUNT(*) as TaskCount").order("projects.name ASC")'
-    @sql[2] = Task.joins(:project).group(:project_id).select("projects.name, COUNT(*) as TaskCount").order("projects.name ASC")
-    @header[2] = ["ID", "Project name","Task Count"]
+    @query[3] = ' SELECT *
+                  FROM projects INNER JOIN tasks ON (projects.id = tasks.project_id)
+                  WHERE projects.name LIKE \'N%\''
+    @header[3] = ["ID", "Name","User_id","Created_at","Updated_at","Priority","Done?","Deadline","Project_id"]
 
-    @query[3] = ' Task.select("projects.name AS pName","tasks.*").joins(:project).where("projects.name LIKE ?","N%"")'
-    @sql[3] = Task.select("projects.name AS pName","tasks.*").joins(:project).where("projects.name LIKE ?",'N%')
-    @header[3] = ["ID", "Name","priority","done?","deadline","project_id","created_at","updated_at","Project name"]
-
-    @query[4] = 'Project.joins("LEFT OUTER JOIN tasks ON projects.id = tasks.project_id").group(:project_id).select("projects.*, COUNT(tasks.project_id) as TaskCount")
-              .where("projects.name LIKE ?","%_a_%")'
-    @sql[4] = Project.joins("LEFT OUTER JOIN tasks ON 'projects'.'id'='tasks'.'project_id'").group(:project_id).select("projects.*, COUNT(tasks.project_id) as TaskCount")
-              .where("projects.name LIKE ?","%_a_%")
+    @query[4] = ' SELECT projects.*, COUNT(distinct tasks.id) as task_count
+                  FROM projects LEFT OUTER JOIN tasks ON tasks.project_id = projects.id
+                  WHERE projects.name LIKE \'%_a_%\'
+                  GROUP BY projects.id'
     @header[4] = ["ID", "Name","User_id","created_at","updated_at","TaskCount"]
 
-    @query[5] = 'Task.group(:name).having("COUNT(*)>1").order(name: :asc)'
-    @sql[5] = Task.group(:name).having("COUNT(*)>1").order(name: :asc)
-    @header[5] = ["ID", "Name","priority","done?","deadline","project_id","created_at","updated_at"]
+    @query[5] = ' SELECT name, COUNT(*)
+                  FROM tasks
+                  GROUP BY name
+                  HAVING COUNT(*)>1'
+    @header[5] = [ "Name", "Count"]
 
-    @query[6] = ' Task.joins(:project).where("projects.name = ?","Garage").group("tasks.name, tasks.done, tasks.deadline").having("COUNT(*)>1").select("tasks.*, COUNT(*)").order("COUNT(*) DESC")'
-    @sql[6] = Task.joins(:project).where("projects.name = 'Garage'").group("tasks.name, tasks.done, tasks.deadline").having("COUNT(*)>1").select("tasks.*, COUNT(*)").order("COUNT(*) DESC")
-    @header[6] = ["ID", "Name","priority","done?","deadline","project_id","created_at","updated_at","Matches"]
+    @query[6] = ' SELECT tasks.name, done, deadline, COUNT(*)
+                  FROM tasks INNER JOIN projects ON (projects.id = tasks.project_id)
+                  WHERE projects.name = \'Garage\'
+                  GROUP BY tasks.name, done, deadline
+                  HAVING COUNT(*)>1
+                  ORDER BY COUNT(*) ASC'
+    @header[6] = ["Name", "Done?","Deadline", "matches"]
 
-    @query[7] = ' Task.where("tasks.done = ?",true).joins(:project).group(:project_id).having("COUNT(*)>=10").select("projects.name, COUNT(*) as TaskCount").order("projects.id DESC")'
-    @sql[7] = Task.where("tasks.done = ?",true).joins(:project).group(:project_id).having("COUNT(*)>=10").select("projects.name, COUNT(*) as TaskCount").order("projects.id DESC")
-    @header[7] = ["ID", "Project name","Done Task Count"]
+    @query[7] = ' SELECT projects.name, COUNT(*)
+                  FROM  tasks INNER JOIN projects ON (projects.id = tasks.project_id)
+                  WHERE tasks.done = \'T\'
+                  GROUP BY projects.id
+                  HAVING COUNT(*)>10
+                  ORDER BY projects.id ASC'
+    @header[7] = ["Project name","Done Task Count"]
 
 
-    for i in 0..@sql.count-1
+    for i in 0...@query.count
+      @sql[i] = sql.execute(@query[i])
       @parsed[i] = @sql[i].as_json.to_a
       @parsed[i] = @parsed[i].to_s.delete("[").delete("]").split("},")
       for x in 0..@parsed[i].count-1
