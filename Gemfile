@@ -32,4 +32,8 @@ group :production do
   gem 'pg',                   '0.17.1'    #for heroku Postgres
   gem 'rails_12factor',       '0.0.2'     #for heroku static assets
   gem 'puma',           '2.11.1'
+
+  gem 'byebug'
+  gem 'web-console',          '~> 2.0'
+  gem 'spring'
 end
