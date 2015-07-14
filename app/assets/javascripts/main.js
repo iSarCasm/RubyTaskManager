@@ -26,6 +26,7 @@ $(document).ready(function() {
 	  	// HIDE
 	  	var len = field.val().length;
 	  	if(len>0 && len<=100) {
+				hideError();
 	  		field.animate({'width':'0px'},300);
 		  	setTimeout(function() {
 		  		field.css({'display':'none'});
@@ -170,6 +171,8 @@ $(document).ready(function() {
 		},3000);
 	};
 	var hideError = function() {
+		if(errorField)
+			errorField.removeClass("error-field");
 		errorField = null;
 	}
 
