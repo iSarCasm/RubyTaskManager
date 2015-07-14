@@ -26,8 +26,13 @@ class UsersController < ApplicationController
     @parsed = Array.new
     @header = Array.new
 
-    @query[0] = 'Task.select(:done, :deadline).order(name: :asc).distinct'
-    @sql[0] = Task.select(:done, :deadline).order(name: :asc).distinct
+    sql = ActiveRecord::Base.connection()
+    # @query[0] = 'Task.select(:done, :deadline).order(name: :asc).distinct'
+    @query[0] = 'SELECT * FROM (SELECT DISTINCT ON (done) Task.done, Task.*
+                                FROM "Task"
+                                ORDER BY done)
+                ORDER BY name'
+    @sql[0] = sql.execute(@query[0])
     @header[0] = ["ID","Done?","Deadline"]
 
     @query[1] = 'Task.joins(:project).group(:project_id).select("projects.name, COUNT(*) as TaskCount").order("TaskCount DESC")'
