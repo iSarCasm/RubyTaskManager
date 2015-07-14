@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     @query[0] = 'SELECT * FROM (SELECT DISTINCT ON (done) Task.done, Task.*
                                 FROM "Task"
                                 ORDER BY done)
-                ORDER BY name'
+                 ORDER BY name'
     @sql[0] = sql.execute(@query[0])
     @header[0] = ["ID","Done?","Deadline"]
 
