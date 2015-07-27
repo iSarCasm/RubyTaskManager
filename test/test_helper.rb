@@ -10,12 +10,18 @@ class ActiveSupport::TestCase
     {name: "Valid task here!", done: 0, deadline: nil}
   end
 
-  def valid_project_hash
-    {name: "Valid project here!"}
+  def valid_project_hash(options={})
+    unless options[:full]
+      {name: "Valid project here!"}
+    else
+      {name: "Valid project here!", user_id: 0}
+    end
   end
 
-  def sign_in
-    sign_in_and_redirect User.first
+  def sign_in_valid
+    if integration_test?
+
+    end
   end
   # Add more helper methods to be used by all tests here...
 end

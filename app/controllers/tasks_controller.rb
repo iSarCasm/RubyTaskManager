@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :check_sign_in
+
   def create
   	project = Project.find(get_params[:project_id])
   	@task = project.tasks.create(	name: 				get_params[:name],
@@ -73,5 +75,9 @@ class TasksController < ApplicationController
   		params.require(:task).permit(:name,:project_id, :done, "deadline(1i)","deadline(2i)", "deadline(3i)")
   	end
 
-    
+    def check_sign_in
+			unless signed_in?
+				redirect_to root_url
+			end
+		end
 end

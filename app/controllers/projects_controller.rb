@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+	before_action :check_sign_in
+
 	def create
 		@project = current_user.projects.create(	name: 	get_params[:name])
 		@project.save;
@@ -27,8 +29,14 @@ class ProjectsController < ApplicationController
     end
 	end
 
-	private 
+	private
 		def get_params
 			params.require(:project).permit(:name)
+		end
+
+		def check_sign_in
+			unless signed_in?
+				redirect_to root_url
+			end
 		end
 end
