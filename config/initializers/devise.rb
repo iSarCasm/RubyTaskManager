@@ -10,16 +10,11 @@ Devise.setup do |config|
 
   require "omniauth-facebook"
   require "omniauth-vkontakte"
-<<<<<<< HEAD
-  # config.omniauth :facebook, "467638323400644", "8046daee11aa5e370c1239a922e0f18e"
-  # config.omniauth :vkontakte, "4961869", "oj4elYnj0zx3XBuYQJFE"
-  config.omniauth :facebook, ENV['FACEBOOK_APPID'], ENV['FACEBOOK_SECRET']
-  config.omniauth :vkontakte, ENV['VK_APPID'], ENV['VK_SECRET']
-=======
-  config.omniauth :facebook, ENV['FACEBOOK_APPID'], ENV['FACEBOOK_SECRET']
-  config.omniauth :vkontakte, ENV['VK_APPID'], ENV['VK_SECRET']
+  config.omniauth :facebook, "467638323400644", "8046daee11aa5e370c1239a922e0f18e"
+  config.omniauth :vkontakte, "4961869", "oj4elYnj0zx3XBuYQJFE"
+  # config.omniauth :facebook, ENV['FACEBOOK_APPID'], ENV['FACEBOOK_SECRET']
+  # config.omniauth :vkontakte, ENV['VK_APPID'], ENV['VK_SECRET']
 
->>>>>>> e0c63f2885bdb7673a6f2db5d03a3d9b722bf756
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
