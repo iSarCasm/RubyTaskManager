@@ -5,4 +5,5 @@ class UsersControllerTest < ActionController::TestCase
     get :sql
     assert_response :success
   end
+
 end

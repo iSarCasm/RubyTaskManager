@@ -1,1 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+valid_user:
+  id: 0
+  username: "John Doe"
+  provider: "vkontakte"
+  url: "http://vk.com/johndoe"
+  email: "johndoe@mail.com"

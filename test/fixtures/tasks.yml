@@ -1,1 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+valid_task:
+  id: 0
+  project_id: 0
+  priority: 0
+  done: F
+  name: "Valid task ready for duty!"
+
+valid_task2:
+  id: 1
+  project_id: 0
+  priority: 1
+  done: F
+  name: "Valid task ready for duty!"
+
+valid_task3:
+  id: 2
+  project_id: 0
+  priority: 2
+  done: F
+  name: "Valid task ready for duty!"

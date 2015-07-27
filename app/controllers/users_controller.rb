@@ -9,9 +9,6 @@ class UsersController < ApplicationController
   	@task = Task.new
   end
 
-  def create
-  end
-
   def destroy
   	sign_out current_user
     respond_to do |format|

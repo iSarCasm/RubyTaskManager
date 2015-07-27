@@ -24,9 +24,6 @@ group :development, :test do
   gem 'spring'
 end
 
-group :test do
-
-end
 
 group :production do
   gem 'pg',                   '0.17.1'    #for heroku Postgres

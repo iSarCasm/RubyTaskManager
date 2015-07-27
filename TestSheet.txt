@@ -3,9 +3,6 @@ Github URL
 Contact URL
 SQL URL
 
-Facebook callback
-Vk callback
-
 Adding TODO's
 Deleting TODO
 Editing TODO
