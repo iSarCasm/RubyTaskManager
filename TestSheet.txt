@@ -1,0 +1,20 @@
+To test:
+Github URL
+Contact URL
+SQL URL
+
+Facebook callback
+Vk callback
+
+Adding TODO's
+Deleting TODO
+Editing TODO
+
+Adding Task
+Deleting Task
+Edit task name
+Edit task deadline
+Edit task priority
+
+
+JS and HTML responses

@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   	sign_out current_user
     respond_to do |format|
       format.html { redirect_to root_url }
-      format.js
+      format.js { redirect_to root_url }
     end
   end
 
@@ -78,8 +78,9 @@ class UsersController < ApplicationController
     @header[7] = ["Project name","Done Task Count"]
 
 
+    #@sql[0] = Task.all.select(:done, :deadline).distinct.select(:name).order(name: :desc)
     for i in 0...@query.count
-      @sql[i] = sql.execute(@query[i])
+      @sql[i] = sql.execute(@query[i]) #if i!=0
       @parsed[i] = @sql[i].as_json.to_a
       @parsed[i] = @parsed[i].to_s.delete("[").delete("]").split("},")
       for x in 0..@parsed[i].count-1
