@@ -41,28 +41,26 @@ class TasksTest < ActiveSupport::TestCase
     end
   end
 
-  test "prioritize up test" do
+    test "prioritize up test" do
     #Arrange
-    project = tasks(:valid_task).project
-    task_id = tasks(:valid_task2).id #One in the middle
-    top_task_id = tasks(:valid_task3).id #One on the bottom
+    task = tasks(:valid_task2) #One in the middle
+    top_task = tasks(:valid_task3) #One on the top
     #Assert
-    assert_difference 'project.tasks.find(task_id).priority', 1, "selected task's priority should increase" do
-      assert_difference 'project.tasks.find(top_task_id).priority',-1, "top task's priority should decrease" do
-        project.tasks.find(task_id).prioritizeUp
+    assert_difference 'task.reload.priority', 1, "selected task's priority should increase" do
+      assert_difference 'top_task.reload.priority',-1, "top task's priority should decrease" do
+        task.prioritizeUp
       end
     end
   end
 
-  test "prioritize down test" do
+    test "prioritize down test" do
     #Arrange
-    project = tasks(:valid_task).project
-    task_id = tasks(:valid_task2).id #One in the middle
-    bottom_task_id = tasks(:valid_task).id #One on the bottom
+    task = tasks(:valid_task2) #One in the middle
+    bottom_task = tasks(:valid_task) #One on the top
     #Assert
-    assert_difference 'project.tasks.find(task_id).priority', -1, "selected task's priority should increase" do
-      assert_difference 'project.tasks.find(bottom_task_id).priority',1, "top task's priority should decrease" do
-        project.tasks.find(task_id).prioritizeDown
+    assert_difference 'task.reload.priority', -1, "selected task's priority should decrease" do
+      assert_difference 'bottom_task.reload.priority',1, "bottom task's priority should increase" do
+        task.prioritizeDown
       end
     end
   end
