@@ -6,4 +6,6 @@ Is a simple TO-DO list. You can add/update/delete your projects and tasks. The f
 https://github.com/iSarCasm/RubyTaskManager/blob/master/test_task_ruby_rails_course.pdf
 https://github.com/iSarCasm/RubyTaskManager/blob/master/test_task_view.png
 
+== Post Scriptum
+You can find SQL-requests in users controller. They are all written in raw SQL and i know it could be done easier with ActiveRecord. 
 
