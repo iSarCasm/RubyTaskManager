@@ -1,3 +1,5 @@
+http://tasker-ruby.herokuapp.com/
+
 == WHAT IS THIS
 This is one of my very first projects on Ruby on Rails. This is made spcially for RubyGarage as a test for applying to their Ruby courses.
 
@@ -5,6 +7,12 @@ This is one of my very first projects on Ruby on Rails. This is made spcially fo
 Is a simple TO-DO list. You can add/update/delete your projects and tasks. The full specification you can find here:
 https://github.com/iSarCasm/RubyTaskManager/blob/master/test_task_ruby_rails_course.pdf
 https://github.com/iSarCasm/RubyTaskManager/blob/master/test_task_view.png
+
+== Used gems
+Database: 'pg'
+Authentication: 'omniauth', 'omniauth-facebook', 'omniauth-vkontakte'
+JQuery: 'jquery-turbolinks'
+Testing: none
 
 == Post Scriptum
 You can find SQL-requests in users controller. They are all written in raw SQL and i know it could be done easier with ActiveRecord. 
